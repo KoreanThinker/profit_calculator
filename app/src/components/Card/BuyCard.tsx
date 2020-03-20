@@ -3,6 +3,7 @@ import { View, Text, StyleSheet, TextInput, TouchableWithoutFeedback } from 'rea
 import { BuyStockType, useStock } from '../../context/stock'
 import BottomLineTextInput from '../Input/BottomLineTextInput'
 import number2MoneyFormat from '../Generator/number2MoneyFormat'
+import Icon from 'react-native-vector-icons/AntDesign'
 
 
 const BuyCard: React.FC<BuyStockType> = ({ many, name, price, id }) => {
@@ -33,7 +34,7 @@ const BuyCard: React.FC<BuyStockType> = ({ many, name, price, id }) => {
                 onPress={() => onBuyRemove(id)}
             >
                 <View style={styles.removeBtn} >
-                    <Text>X</Text>
+                    <Icon name='close' color='#555' size={16} />
                 </View>
             </TouchableWithoutFeedback>
         </View>

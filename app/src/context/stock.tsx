@@ -1,6 +1,7 @@
 import React, { createContext, Dispatch, useReducer, useContext, useEffect } from 'react';
 import AsyncStorage from '@react-native-community/async-storage'
 import { uuid } from 'short-uuid'
+import { ToastAndroid } from 'react-native';
 
 export type BuyStockType = {
     name: string,
@@ -10,7 +11,7 @@ export type BuyStockType = {
 }
 export type SellType = {
     price: number,
-    commission: number,
+    commission: string,
 }
 
 export type Stock = {
@@ -32,10 +33,17 @@ type Action =
     | { type: 'BUYMANY', id: string, text: string }
     | { type: 'BUYADD' }
     | { type: 'BUYREMOVE', id: string }
+    | { type: 'SELLPRICE', text: string }
+    | { type: 'SELLCOMMISSION', text: string }
+    | { type: 'SETNAME', name: string }
+    | { type: 'SETINDEX', id: string }
+    | { type: 'STOCKADD', name: string, id: string }
 
 
 const UserStateContext = createContext<StockState | undefined>(undefined);
 const UserDispatchContext = createContext<Dispatch<Action> | undefined>(undefined);
+
+
 
 const userReducer = (state: StockState, action: Action): StockState => {
     let st = state.stocks.filter(() => true)
@@ -43,8 +51,11 @@ const userReducer = (state: StockState, action: Action): StockState => {
         case 'INIT':
             return action.state;
         case 'REMOVE':
-            if (state.stocks.length == 1) return state
-            return { ...state, stocks: state.stocks.filter(i => i.id != action.id) }
+            if (state.stocks.length == 1) {
+                ToastAndroid.show('최소 1개의 데이터는 있어야합니다', ToastAndroid.SHORT)
+                return state
+            }
+            return { ...state, stocks: st.filter(i => i.id != action.id), index: 0 }
         case 'BUYPRICE':
             for (let i = 0; i < st[state.index].buys.length; i++) {
                 if (st[state.index].buys[i].id == action.id) {
@@ -78,10 +89,46 @@ const userReducer = (state: StockState, action: Action): StockState => {
             st2.push({ id: uuid(), name, many: 0, price: 0 })
             st[state.index].buys = st2
             return { ...state, stocks: st }
+        case 'SELLPRICE':
+            st[state.index].sell.price = action.text == '' ? 0 : parseInt(action.text.replace(/[^0-9]/g, ''))
+            return { ...state, stocks: st }
+        case 'SELLCOMMISSION':
+
+            st[state.index].sell.commission = action.text == '' ? '0' : action.text.replace(/[^-\.0-9]/g, '')
+            return { ...state, stocks: st }
+        case 'SETNAME':
+            st[state.index].name = action.name
+            return { ...state, stocks: st }
+        case 'SETINDEX':
+            for (let i = 0; i < st.length; i++) {
+                if (st[i].id == action.id) {
+                    return { ...state, index: i }
+                }
+            }
+            return { ...state, index: 0 }
+        case 'STOCKADD':
+            st.push({
+                id: action.id,
+                name: action.name,
+                sell: {
+                    commission: '0.015',
+                    price: 0
+                },
+                buys: [
+                    {
+                        id: uuid(),
+                        name: '매수1',
+                        many: 0,
+                        price: 0
+                    }
+                ]
+            })
+            return { ...state, stocks: st }
         default:
             return state
     }
 }
+
 
 
 const initState: StockState = {
@@ -99,13 +146,12 @@ const initState: StockState = {
             id: '456',
             name: '내 주식1',
             sell: {
-                commission: 0,
+                commission: '0.015',
                 price: 0
             }
         }
     ]
 }
-
 
 export const StockContextProvider: React.FC = ({ children }) => {
 
@@ -152,6 +198,11 @@ export const useStock = () => {
     const onBuyManyChange = (id: string, text: string) => dispatch({ type: 'BUYMANY', id, text })
     const onBuyRemove = (id: string) => dispatch({ type: 'BUYREMOVE', id })
     const onBuyAdd = () => dispatch({ type: 'BUYADD' })
+    const onSellPriceChange = (text: string) => dispatch({ type: 'SELLPRICE', text })
+    const onSellCommissionChange = (text: string) => dispatch({ type: 'SELLCOMMISSION', text })
+    const onSetName = (name: string) => dispatch({ type: 'SETNAME', name })
+    const onSetIndex = (id: string) => dispatch({ type: 'SETINDEX', id })
+    const onAddStock = (id: string, name: string) => dispatch({ type: 'STOCKADD', name, id })
 
     return {
         ...state,
@@ -160,6 +211,11 @@ export const useStock = () => {
         onBuyPriceChange,
         onBuyManyChange,
         onBuyAdd,
-        onBuyRemove
+        onBuyRemove,
+        onSellPriceChange,
+        onSellCommissionChange,
+        onSetName,
+        onSetIndex,
+        onAddStock
     };
 }

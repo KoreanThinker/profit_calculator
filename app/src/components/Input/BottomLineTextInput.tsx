@@ -15,6 +15,7 @@ const BottomLineTextInput: React.FC<BottomLineTextInputProps> = ({ value, onChan
                 onChangeText={onChange}
                 textAlignVertical='center'
                 style={{ flex: 1, textAlign: 'right', padding: 0 }}
+                maxLength={14}
             />
             <Text>{unit}</Text>
         </View>
