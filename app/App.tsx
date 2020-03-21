@@ -2,6 +2,7 @@ import React from 'react';
 
 import AppContainer from './src/screens'
 import { StockContextProvider } from './src/context/stock';
+import BottomBannerAds from './src/components/View/BottomBannerAds';
 
 const App = () => {
   return (
@@ -9,6 +10,7 @@ const App = () => {
       <StockContextProvider>
         <AppContainer />
       </StockContextProvider>
+      <BottomBannerAds />
     </>
   );
 };

@@ -990,6 +990,11 @@
   resolved "https://registry.yarnpkg.com/@react-native-community/masked-view/-/masked-view-0.1.7.tgz#a65ce0702f55cb67fd777995de6fc7b3e5781903"
   integrity sha512-9KbP7LTLFz9dx1heURJbO6nuVMdSjDez8znlrUzaB1nUwKVsTTwlKRuHxGUYIIkReLWrJQeCv9tidy+84z2eCw==
 
+"@react-native-firebase/admob@^6.3.4":
+  version "6.3.4"
+  resolved "https://registry.yarnpkg.com/@react-native-firebase/admob/-/admob-6.3.4.tgz#554dfcb6f332234ab21bb2b9d83df14e3c7519dc"
+  integrity sha512-CWTlQ/8w3CpLujB+krbZZXYue4Qrg+tIQKFRzBHKj2uEiyU+NYIWZa5GK+JruDeI0WicvBG2FB0yNijiQc2x8Q==
+
 "@react-native-firebase/app-types@6.3.4":
   version "6.3.4"
   resolved "https://registry.yarnpkg.com/@react-native-firebase/app-types/-/app-types-6.3.4.tgz#e54a3de33455417db63a7b1de2b7795af1c25cae"

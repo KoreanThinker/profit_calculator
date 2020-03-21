@@ -11,7 +11,7 @@ const Body = () => {
             <FlatList
                 data={stocks}
                 renderItem={({ item }) => <StockListCard {...item} />}
-                ListFooterComponent={<View style={{ height: 80 }} />}
+                ListFooterComponent={<View style={{ height: 100 }} />}
             />
         </View>
     )
