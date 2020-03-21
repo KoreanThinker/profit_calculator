@@ -17,6 +17,7 @@ const BottomLineTextInputAutoFit: React.FC<BottomLineTextInputAutoFitProps> = ({
                 textAlignVertical='center'
                 maxLength={maxLength}
                 style={{ padding: 0, minWidth: undefined }}
+                keyboardType='number-pad'
             />
             <Text>{unit}</Text>
         </View>

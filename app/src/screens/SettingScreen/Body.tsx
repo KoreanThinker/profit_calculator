@@ -4,7 +4,7 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 import SettingCard from '../../components/Card/SettingCard';
 
 const ANDROIDSTORE = 'https://play.google.com/store/apps/details?id=com.koreanthinker.stockcalculator';
-const EMAIL = 'mailto:coderhyun@gmail.com'
+const EMAIL = 'mailto:coderhyun476@gmail.com'
 
 export interface setting {
     text: string;

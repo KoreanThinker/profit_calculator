@@ -16,6 +16,7 @@ const BottomLineTextInput: React.FC<BottomLineTextInputProps> = ({ value, onChan
                 textAlignVertical='center'
                 style={{ flex: 1, textAlign: 'right', padding: 0 }}
                 maxLength={14}
+                keyboardType='number-pad'
             />
             <Text>{unit}</Text>
         </View>

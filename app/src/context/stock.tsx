@@ -94,7 +94,7 @@ const userReducer = (state: StockState, action: Action): StockState => {
             return { ...state, stocks: st }
         case 'SELLCOMMISSION':
 
-            st[state.index].sell.commission = action.text == '' ? '0' : action.text.replace(/[^-\.0-9]/g, '')
+            st[state.index].sell.commission = action.text == '' ? '0' : action.text.replace(/[^\.0-9]/g, '')
             return { ...state, stocks: st }
         case 'SETNAME':
             st[state.index].name = action.name
