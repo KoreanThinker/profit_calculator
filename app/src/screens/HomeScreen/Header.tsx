@@ -47,6 +47,7 @@ const Header = () => {
 
             <Dialog.Container
                 visible={nameVisible}
+                animationOutTiming={1}
             >
                 <Dialog.Title>이름 변경</Dialog.Title>
                 <Dialog.Input
